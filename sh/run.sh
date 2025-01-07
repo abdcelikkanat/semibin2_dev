@@ -1,5 +1,5 @@
 #!/usr/bin/bash -l
-#SBATCH --job-name=TEST2
+#SBATCH --job-name=RUNSEMIBIN2
 #SBATCH --output=%x_%j.out
 #SBATCH --error=%x_%j.err
 #SBATCH --nodes=1
@@ -15,10 +15,11 @@
 # Exit on first error and if any variables are unset
 #set -eu
 
+TEST_NAME="negativeSamplesV1"
+
 THREADS=40
 SEQ_MIN_LEN=3000
 SAMPLES=(PaPr00000216MP) #(PaPr00000216MP RASK00000062MP ASYM00000026MP RASK00000098MP)
-TEST_NAME="test1"
 
 PROJECT_FOLDER="/home/cs.aau.dk/zs74qz/workspace/semibin2_dev"
 SEMIBIN2_PATH="/home/cs.aau.dk/zs74qz/.conda/envs/semibin2_dev/bin/SemiBin2"

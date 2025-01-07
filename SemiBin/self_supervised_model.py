@@ -88,9 +88,7 @@ def train_self(logger, out : str, datapaths, data_splits, is_combined=True,
             # cannot link data is sampled randomly
             n_cannot_link = min(n_must_link * 1000 // 2, 4_000_000)
             indices1 = np.random.choice(data_length, size=n_cannot_link)
-            indices2 = indices1 + 1 + np.random.choice(data_length - 1,
-                                                       size=n_cannot_link)
-            indices2 %= data_length
+            indices2 = np.random.choice(data_length,  size=n_cannot_link)
 
 
             if epoch == 0:
@@ -99,14 +97,13 @@ def train_self(logger, out : str, datapaths, data_splits, is_combined=True,
                 logger.debug(
                     f'Number of cannot-link pairs: {n_cannot_link}')
 
-            train_input_1 = np.concatenate(
-                                (train_data[indices1],
-                                train_data_split[::2]))
-            train_input_2 = np.concatenate(
-                                    (train_data[indices2],
-                                    train_data_split[1::2]))
+            # I won't use the train_data, instead I'll used train_data_split
+            # The initial len(indices1) represents the negative instances and the remaining ones are the positive.
+            train_input_1 = np.concatenate((train_data_split[indices1], train_data_split[::2]))
+            train_input_2 = np.concatenate((train_data_split[indices2], train_data_split[1::2]))
             train_labels = np.zeros(len(train_input_1), dtype=np.float32)
             train_labels[len(indices1):] = 1
+
             dataset = feature_Dataset(train_input_1, train_input_2, train_labels)
             train_loader = DataLoader(
                 dataset=dataset,
