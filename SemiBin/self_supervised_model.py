@@ -86,7 +86,7 @@ def train_self(logger, out : str, datapaths, data_splits, is_combined=True,
 
             data_length = len(train_data)
             # cannot link data is sampled randomly
-            n_cannot_link = min(n_must_link * 1000 // 2, 4_000_000)
+            n_cannot_link = n_must_link * 1000  // 2 #min(n_must_link * 1000 // 2, 4_000_000)
             indices1 = np.random.choice(data_length, size=n_cannot_link)
             indices2 = np.random.choice(data_length,  size=n_cannot_link)
 

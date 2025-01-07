@@ -15,11 +15,11 @@
 # Exit on first error and if any variables are unset
 #set -eu
 
-TEST_NAME="negativeSamplesV1"
+TEST_NAME="negativeSamplesV2NoMaxForNegSamples"
 
 THREADS=40
 SEQ_MIN_LEN=3000
-SAMPLES=(PaPr00000216MP) #(PaPr00000216MP RASK00000062MP ASYM00000026MP RASK00000098MP)
+SAMPLES=(PaPr00000216MP ASYM00000026MP) #(PaPr00000216MP RASK00000062MP ASYM00000026MP RASK00000098MP)
 
 PROJECT_FOLDER="/home/cs.aau.dk/zs74qz/workspace/semibin2_dev"
 SEMIBIN2_PATH="/home/cs.aau.dk/zs74qz/.conda/envs/semibin2_dev/bin/SemiBin2"
