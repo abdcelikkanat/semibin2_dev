@@ -7,7 +7,7 @@
 #SBATCH --ntasks-per-node=1
 #SBATCH --partition=general
 #SBATCH --cpus-per-task=10
-#SBATCH --mem=64G
+#SBATCH --mem=256G
 #SBATCH --time=3-00:00:00
 #SBATCH --mail-type=ALL
 #SBATCH --mail-user=abce@cs.aau.dk
