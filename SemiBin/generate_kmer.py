@@ -31,7 +31,7 @@ def generate_kmer_features_from_fasta(
                 yield (h + '_a_1', seq[:1*oneforth])
                 yield (h + '_a_2', seq[1 * oneforth:2 * oneforth])
                 yield (h + '_b_1', seq[:1 * oneforth])
-                yield (h + '_b_1', seq[2 * oneforth:3 * oneforth])
+                yield (h + '_b_2', seq[2 * oneforth:3 * oneforth])
                 yield (h + '_c_1', seq[:1 * oneforth])
                 yield (h + '_c_2', seq[3 * oneforth:])
                 yield (h + '_d_1', seq[1 * oneforth:2 * oneforth])
