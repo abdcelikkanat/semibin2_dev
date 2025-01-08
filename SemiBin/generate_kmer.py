@@ -27,7 +27,7 @@ def generate_kmer_features_from_fasta(
             if not split:
                 yield h, seq
             elif len(seq) >= split_threshold:
-                oneforth = len(seq) // 3
+                oneforth = len(seq) // 4
                 yield (h + '_a_1', seq[:1*oneforth])
                 yield (h + '_a_2', seq[2*oneforth:3*oneforth])
                 yield (h + '_b_1', seq[1 * oneforth:2 * oneforth])
