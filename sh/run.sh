@@ -15,7 +15,7 @@
 # Exit on first error and if any variables are unset
 #set -eu
 
-TEST_NAME="negativeSamplesV2OverlapOneThird"
+TEST_NAME="negativeSamplesV2FourParts"
 
 THREADS=40
 SEQ_MIN_LEN=3000
