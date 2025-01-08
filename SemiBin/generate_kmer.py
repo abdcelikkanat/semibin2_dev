@@ -27,9 +27,9 @@ def generate_kmer_features_from_fasta(
             if not split:
                 yield h, seq
             elif len(seq) >= split_threshold:
-                half = len(seq) // 2
-                yield (h + '_1', seq[:half])
-                yield (h + '_2', seq[half:])
+                onethird = len(seq) // 3
+                yield (h + '_1', seq[:2*onethird])
+                yield (h + '_2', seq[onethird:])
 
     kmer_dict, nr_features = generate_feature_mapping(kmer_len)
     composition = OrderedDict()
