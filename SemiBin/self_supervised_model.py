@@ -28,6 +28,7 @@ def train_self(logger, out : str, datapaths, data_splits, is_combined=True,
     out : filename to write model to
     """
     epoches = 50
+    loss_list = []
     from tqdm import tqdm
     import pandas as pd
     import numpy as np
@@ -52,6 +53,7 @@ def train_self(logger, out : str, datapaths, data_splits, is_combined=True,
     scheduler = lr_scheduler.StepLR(optimizer, step_size=1, gamma=0.9)
 
     for epoch in tqdm(range(epoches)):
+        epoch_loss = 0
         for data_index, (datapath, data_split_path) in enumerate(zip(datapaths, data_splits)):
             if epoch == 0:
                 logger.debug(f'Reading training data for index {data_index}...')
@@ -128,9 +130,21 @@ def train_self(logger, out : str, datapaths, data_splits, is_combined=True,
                 supervised_loss.backward()
                 optimizer.step()
 
+                epoch_loss += supervised_loss.item()
+
+            # Normalize the loss by the number of data points
+            epoch_loss /= len(train_loader)
+            loss_list.append(epoch_loss)
+
         scheduler.step()
+
 
     logger.info('Training finished.')
     torch.save(model, out)
+
+    # Write loss to file
+    with open(out + '.loss', 'w') as loss_file:
+        for loss in loss_list:
+            loss_file.write(str(loss) + '\n')
 
     return model
