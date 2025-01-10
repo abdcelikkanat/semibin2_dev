@@ -54,17 +54,24 @@ class Semi_encoding_single(torch.nn.Module):
     """
     def __init__(self, num):
         super(Semi_encoding_single, self).__init__()
+        # self.encoder1 = torch.nn.Sequential(
+        #     Linear(num, 512),
+        #     nn.BatchNorm1d(512),
+        #     LeakyReLU(),
+        #     nn.Dropout(0.2),
+        #     Linear(512, 512),
+        #     nn.BatchNorm1d(512),
+        #     LeakyReLU(),
+        #     nn.Dropout(0.2),
+        #     Linear(512, 100),
+        # )
         self.encoder1 = torch.nn.Sequential(
-            Linear(num, 512),
-            nn.BatchNorm1d(512),
-            LeakyReLU(),
-            nn.Dropout(0.2),
-            Linear(512, 512),
-            nn.BatchNorm1d(512),
-            LeakyReLU(),
-            nn.Dropout(0.2),
-            Linear(512, 100),
-        )
+                Linear(num, 512),
+                torch.nn.Sigmoid(),
+                Linear(512, 512),
+                torch.nn.Sigmoid(),
+                Linear(512, 100),
+            )
 
         self.decoder1 = torch.nn.Sequential(
             Linear(100, 512),
