@@ -5,7 +5,7 @@
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
 #SBATCH --ntasks-per-node=1
-#SBATCH --partition=general
+#SBATCH --partition=high-mem
 #SBATCH --cpus-per-task=10
 #SBATCH --mem=256G
 #SBATCH --time=3-00:00:00
@@ -15,7 +15,7 @@
 # Exit on first error and if any variables are unset
 #set -eu
 
-TEST_NAME="negativeSamplesV2TOnePosPairsEpochs50"
+TEST_NAME="negativeSamplesV2TOnePosPairsEpochs50NoBound"
 
 THREADS=40
 SEQ_MIN_LEN=3000
