@@ -67,10 +67,14 @@ class Semi_encoding_single(torch.nn.Module):
         # )
         self.encoder1 = torch.nn.Sequential(
                 Linear(num, 512),
+                nn.BatchNorm1d(512),
                 torch.nn.Sigmoid(),
+                nn.Dropout(0.2),
                 Linear(512, 512),
+                nn.BatchNorm1d(512),
                 torch.nn.Sigmoid(),
-                Linear(512, 100),
+                nn.Dropout(0.2),
+                Linear(512, 128),
             )
 
         self.decoder1 = torch.nn.Sequential(
