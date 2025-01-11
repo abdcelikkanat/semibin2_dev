@@ -27,7 +27,7 @@ def train_self(logger, out : str, datapaths, data_splits, is_combined=True,
     ----------
     out : filename to write model to
     """
-    epoches = 200
+    epoches = 50
     loss_list = []
     from tqdm import tqdm
     import pandas as pd
