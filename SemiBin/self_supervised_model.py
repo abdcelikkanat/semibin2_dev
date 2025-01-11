@@ -27,7 +27,7 @@ def train_self(logger, out : str, datapaths, data_splits, is_combined=True,
     ----------
     out : filename to write model to
     """
-    epoches = 50
+    epoches = 150
     batchsize = 8192
     loss_list = []
     from tqdm import tqdm
