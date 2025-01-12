@@ -28,6 +28,7 @@ def train_self(logger, out : str, datapaths, data_splits, is_combined=True,
     out : filename to write model to
     """
     epoches = 50
+    learning_rate = 1e-3
     from tqdm import tqdm
     import pandas as pd
     import numpy as np
@@ -48,9 +49,10 @@ def train_self(logger, out : str, datapaths, data_splits, is_combined=True,
 
     model = model.to(device)
 
-    optimizer = torch.optim.Adam(model.parameters(), lr=1e-3)
+    optimizer = torch.optim.Adam(model.parameters(), lr=learning_rate)
     scheduler = lr_scheduler.StepLR(optimizer, step_size=1, gamma=0.9)
 
+    loss_list = []
     for epoch in tqdm(range(epoches)):
         for data_index, (datapath, data_split_path) in enumerate(zip(datapaths, data_splits)):
             if epoch == 0:
@@ -114,6 +116,7 @@ def train_self(logger, out : str, datapaths, data_splits, is_combined=True,
                 num_workers=0,
                 drop_last=True)
 
+            current_loss = 0
             for train_input1, train_input2, train_label in train_loader:
                 model.train()
                 train_input1 = train_input1.to(device=device, dtype=torch.float32)
@@ -128,9 +131,17 @@ def train_self(logger, out : str, datapaths, data_splits, is_combined=True,
                 supervised_loss.backward()
                 optimizer.step()
 
+                current_loss += supervised_loss.item()
+            current_loss /= len(train_loader)
+            loss_list.append(current_loss)
+
         scheduler.step()
 
     logger.info('Training finished.')
     torch.save(model, out)
+
+    with open(out + '.loss', 'w') as f:
+        for idx, loss in enumerate(loss_list):
+            f.write(f'{idx}\t{loss}\n')
 
     return model
