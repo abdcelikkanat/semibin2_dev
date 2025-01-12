@@ -29,6 +29,7 @@ def train_self(logger, out : str, datapaths, data_splits, is_combined=True,
     """
     epoches = 150
     batchsize = 8192
+    learning_rate = 1e-4
     loss_list = []
     from tqdm import tqdm
     import pandas as pd
@@ -50,7 +51,7 @@ def train_self(logger, out : str, datapaths, data_splits, is_combined=True,
 
     model = model.to(device)
 
-    optimizer = torch.optim.Adam(model.parameters(), lr=1e-3)
+    optimizer = torch.optim.Adam(model.parameters(), lr=learning_rate)
     scheduler = lr_scheduler.StepLR(optimizer, step_size=1, gamma=0.9)
 
     for epoch in tqdm(range(epoches)):
@@ -145,7 +146,7 @@ def train_self(logger, out : str, datapaths, data_splits, is_combined=True,
 
     # Write loss to file
     with open(out + '.loss', 'w') as loss_file:
-        for loss in loss_list:
-            loss_file.write(str(loss) + '\n')
+        for id, loss in enumerate(loss_list):
+            loss_file.write(f"{id}\t" + str(loss) + '\n')
 
     return model
