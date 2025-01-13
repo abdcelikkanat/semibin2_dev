@@ -140,7 +140,7 @@ def train_self(logger, out : str, datapaths, data_splits, is_combined=True,
             current_loss /= len(train_loader)
             loss_list.append(current_loss)
 
-        scheduler.step()
+        # scheduler.step()
 
     logger.info('Training finished.')
     torch.save(model, out)
