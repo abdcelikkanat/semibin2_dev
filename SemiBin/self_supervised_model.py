@@ -29,6 +29,8 @@ def train_self(logger, out : str, datapaths, data_splits, is_combined=True,
     """
     epoches = 50
     learning_rate = 1e-3
+    batchsize = 1024 * 8
+    upper_bound = 10_000_000
     from tqdm import tqdm
     import pandas as pd
     import numpy as np
@@ -89,8 +91,8 @@ def train_self(logger, out : str, datapaths, data_splits, is_combined=True,
 
             data_length = len(train_data)
             # cannot link data is sampled randomly
-            n_cannot_link = n_must_link * 1000 // 2 #min(n_must_link * 1000 // 2, 4_000_000)
-            # n_cannot_link = min(n_must_link * 1000 // 2, 4_000_000)
+            # n_cannot_link = n_must_link * 1000 // 2 #min(n_must_link * 1000 // 2, 4_000_000)
+            n_cannot_link = min(n_must_link * 1000 // 2, upper_bound)
             indices1 = np.random.choice(data_length, size=n_cannot_link)
             indices2 = np.random.choice(data_length,  size=n_cannot_link)
 
