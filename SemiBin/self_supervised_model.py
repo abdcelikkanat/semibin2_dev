@@ -7,12 +7,15 @@ from .semi_supervised_model import Semi_encoding_single, Semi_encoding_multiple,
 from .utils import norm_abundance
 
 def loss_function(embedding1, embedding2, label):
-    relu = torch.nn.ReLU()
-    d = torch.norm(embedding1 - embedding2, p=2, dim=1)
-    square_pred = torch.square(d)
-    margin_square = torch.square(relu(1 - d))
-    supervised_loss = torch.mean(
-        label * square_pred + (1 - label) * margin_square)
+    # relu = torch.nn.ReLU()
+    # d = torch.norm(embedding1 - embedding2, p=2, dim=1)
+    # square_pred = torch.square(d)
+    # margin_square = torch.square(relu(1 - d))
+    # supervised_loss = torch.mean(
+    #     label * square_pred + (1 - label) * margin_square)
+    loss = torch.nn.BCELoss()
+    d = torch.exp(-torch.norm(embedding1 - embedding2, p=2, dim=1)**2)
+    supervised_loss = loss(d, label)
     return supervised_loss
 
 
@@ -52,7 +55,7 @@ def train_self(logger, out : str, datapaths, data_splits, is_combined=True,
     model = model.to(device)
 
     optimizer = torch.optim.Adam(model.parameters(), lr=learning_rate)
-    scheduler = lr_scheduler.StepLR(optimizer, step_size=1, gamma=0.9)
+    # scheduler = lr_scheduler.StepLR(optimizer, step_size=1, gamma=0.9)
 
     loss_list = []
     for epoch in tqdm(range(epoches)):
