@@ -29,8 +29,8 @@ def train_self(logger, out : str, datapaths, data_splits, is_combined=True,
     """
     epoches = 50
     learning_rate = 1e-3
-    batchsize = 1024 * 8
-    upper_bound = 10_000_000
+    batchsize = 1024 * 2
+    upper_bound = 4_000_000
     from tqdm import tqdm
     import pandas as pd
     import numpy as np
