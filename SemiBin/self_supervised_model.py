@@ -13,15 +13,15 @@ def loss_function(embedding1, embedding2, label):
     # margin_square = torch.square(relu(1 - d))
     # supervised_loss = torch.mean(
     #     label * square_pred + (1 - label) * margin_square)
-    loss = torch.nn.BCELoss()
-    d = torch.exp(-torch.norm(embedding1 - embedding2, p=2, dim=1) / embedding1.shape[1])
-    supervised_loss = loss(d, label)
-    # relu = torch.nn.ReLU()
-    # d = torch.norm(embedding1 - embedding2, p=2, dim=1)
-    # square_pred = torch.square(d)
-    # margin_square = torch.exp(-d)
-    # supervised_loss = torch.mean(
-    #     label * square_pred + (1 - label) * margin_square)
+    # loss = torch.nn.BCELoss()
+    # d = torch.exp(-torch.norm(embedding1 - embedding2, p=2, dim=1) / embedding1.shape[1])
+    # supervised_loss = loss(d, label)
+    relu = torch.nn.ReLU()
+    d = torch.norm(embedding1 - embedding2, p=2, dim=1)
+    square_pred = torch.square(d)
+    margin_square = torch.square(relu(2 - d))
+    supervised_loss = torch.mean(
+        label * square_pred + (1 - label) * margin_square)
     return supervised_loss
 
 
