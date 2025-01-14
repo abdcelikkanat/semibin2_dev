@@ -19,7 +19,7 @@ def loss_function(embedding1, embedding2, label):
     relu = torch.nn.ReLU()
     d = torch.norm(embedding1 - embedding2, p=2, dim=1)
     square_pred = torch.square(d)
-    margin_square = torch.square(relu(0.5 - d))
+    margin_square = torch.square(relu(0.1 - d))
     supervised_loss = torch.mean(
         label * square_pred + (1 - label) * margin_square)
     return supervised_loss
