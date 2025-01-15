@@ -7,12 +7,12 @@ from .semi_supervised_model import Semi_encoding_single, Semi_encoding_multiple,
 from .utils import norm_abundance
 
 def loss_function(embedding1, embedding2, label):
-    # relu = torch.nn.ReLU()
-    # d = torch.norm(embedding1 - embedding2, p=2, dim=1)
-    # square_pred = torch.square(d)
-    # margin_square = torch.square(relu(1 - d))
-    # supervised_loss = torch.mean(
-    #     label * square_pred + (1 - label) * margin_square)
+    relu = torch.nn.ReLU()
+    d = torch.norm(embedding1 - embedding2, p=2, dim=1)
+    square_pred = torch.square(d)
+    margin_square = torch.square(relu(1 - d))
+    supervised_loss = torch.mean(
+        label * square_pred + (1 - label) * margin_square)
     # loss = torch.nn.BCELoss()
     # d = torch.exp(-torch.norm(embedding1 - embedding2, p=2, dim=1) / embedding1.shape[1])
     # supervised_loss = loss(d, label)
@@ -22,9 +22,9 @@ def loss_function(embedding1, embedding2, label):
     # margin_square = torch.square(relu(0.1 - d))
     # supervised_loss = torch.mean(
     #     label * square_pred + (1 - label) * margin_square)
-    loss = torch.nn.BCEWithLogitsLoss()
-    sim = torch.nn.CosineSimilarity()
-    supervised_loss = loss(sim(embedding1, embedding2), label)
+    # loss = torch.nn.BCEWithLogitsLoss()
+    # sim = torch.nn.CosineSimilarity()
+    # supervised_loss = loss(sim(embedding1, embedding2), label)
 
     return supervised_loss
 
