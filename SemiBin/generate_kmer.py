@@ -31,10 +31,10 @@ def generate_kmer_features_from_fasta(
                 onethird = len(seq) // 3
                 yield (h + '_a_1', seq[:1 * onehalf])
                 yield (h + '_a_2', seq[1 * onehalf:])
-                yield (h + '_b_1', seq)
-                yield (h + '_b_2', seq[:1 * onehalf])
-                yield (h + '_c_1', seq)
-                yield (h + '_c_2', seq[1 * onehalf:])
+                # yield (h + '_b_1', seq)
+                # yield (h + '_b_2', seq[:1 * onehalf])
+                # yield (h + '_c_1', seq)
+                # yield (h + '_c_2', seq[1 * onehalf:])
                 # yield (h + '_a_1', seq[:1*onethird])
                 # yield (h + '_a_2', seq[1 * onethird:2 * onethird])
                 # yield (h + '_b_1', seq[:1 * onethird])
@@ -45,7 +45,7 @@ def generate_kmer_features_from_fasta(
     kmer_dict, nr_features = generate_feature_mapping(kmer_len)
     composition = OrderedDict()
     for h, seq in seq_list():
-        if len(seq) < (length_threshold * 1 / 2) + 4:
+        if len(seq) < length_threshold: #(length_threshold * 1 / 2) + 4:
             continue
         norm_seq = str(seq).upper()
         kmers = [kmer_dict[norm_seq[i:i+kmer_len]]
