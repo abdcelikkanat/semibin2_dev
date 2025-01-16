@@ -1,6 +1,6 @@
 import torch
-from caffe2.python.helpers.dropout import dropout
-from caffe2.python.rnn.rnn_cell_test_util import sigmoid
+# from caffe2.python.helpers.dropout import dropout
+# from caffe2.python.rnn.rnn_cell_test_util import sigmoid
 from torch.nn import Linear, ReLU, LeakyReLU
 from torch import nn
 from torch.utils.data import Dataset, DataLoader
@@ -67,15 +67,15 @@ class Semi_encoding_single(torch.nn.Module):
         #     nn.Dropout(0.2),
         #     Linear(512, 100),
         # )
-        linear1 = Linear(num, num),
-        batchnorm1 = nn.BatchNorm1d(num),
-        sigmoid1 = torch.nn.Sigmoid(),
-        dropout1 = nn.Dropout(0.2),
-        linear2 = Linear(num, num),
-        batchnorm2 = nn.BatchNorm1d(num),
-        sigmoid2 = torch.nn.Sigmoid(),
-        dropout2 = nn.Dropout(0.2),
-        linear3 = Linear(num, 128),
+        self.linear1 = Linear(num, num)
+        self.batchnorm1 = nn.BatchNorm1d(num)
+        self.sigmoid1 = torch.nn.Sigmoid()
+        self.dropout1 = nn.Dropout(0.2)
+        self.linear2 = Linear(num, num)
+        self.batchnorm2 = nn.BatchNorm1d(num)
+        self.sigmoid2 = torch.nn.Sigmoid()
+        self.dropout2 = nn.Dropout(0.2)
+        self.linear3 = Linear(num, 128)
 
         # self.encoder1 = torch.nn.Sequential(
         #         Linear(num, num),
