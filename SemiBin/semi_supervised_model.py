@@ -1,4 +1,6 @@
 import torch
+from caffe2.python.helpers.dropout import dropout
+from caffe2.python.rnn.rnn_cell_test_util import sigmoid
 from torch.nn import Linear, ReLU, LeakyReLU
 from torch import nn
 from torch.utils.data import Dataset, DataLoader
@@ -65,17 +67,27 @@ class Semi_encoding_single(torch.nn.Module):
         #     nn.Dropout(0.2),
         #     Linear(512, 100),
         # )
-        self.encoder1 = torch.nn.Sequential(
-                Linear(num, num),
-                nn.BatchNorm1d(num),
-                torch.nn.Sigmoid(),
-                nn.Dropout(0.2),
-                Linear(num, num),
-                nn.BatchNorm1d(num),
-                torch.nn.Sigmoid(),
-                nn.Dropout(0.2),
-                Linear(num, 128),
-            )
+        linear1 = Linear(num, num),
+        batchnorm1 = nn.BatchNorm1d(num),
+        sigmoid1 = torch.nn.Sigmoid(),
+        dropout1 = nn.Dropout(0.2),
+        linear2 = Linear(num, num),
+        batchnorm2 = nn.BatchNorm1d(num),
+        sigmoid2 = torch.nn.Sigmoid(),
+        dropout2 = nn.Dropout(0.2),
+        linear3 = Linear(num, 128),
+
+        # self.encoder1 = torch.nn.Sequential(
+        #         Linear(num, num),
+        #         nn.BatchNorm1d(num),
+        #         torch.nn.Sigmoid(),
+        #         nn.Dropout(0.2),
+        #         Linear(num, num),
+        #         nn.BatchNorm1d(num),
+        #         torch.nn.Sigmoid(),
+        #         nn.Dropout(0.2),
+        #         Linear(num, 128),
+        #     )
 
         self.decoder1 = torch.nn.Sequential(
             Linear(100, 512),
@@ -89,6 +101,20 @@ class Semi_encoding_single(torch.nn.Module):
             Linear(512, num),
             nn.Softmax(dim=1),
         )
+
+    def encoder1(self, x0):
+        x1 = self.linear1(x0)
+        x1 = self.dropout1(x1)
+        x1 = self.batchnorm1(x1+x0)
+        x1 = self.sigmoid1(x1)
+
+        x2 = self.linear1(x1)
+        x2 = self.dropout1(x2)
+        x2 = self.batchnorm1(x2 + x1)
+        x2 = self.sigmoid1(x2)
+
+        return self.linear3(x2)
+
 
     def forward(self, input1, input2):
         return self.encoder1(input1), self.encoder1(input2)
