@@ -69,15 +69,15 @@ class Semi_encoding_single(torch.nn.Module):
         # )
         self.linear1 = Linear(num, num)
         self.batchnorm1 = nn.BatchNorm1d(num)
-        self.sigmoid1 = torch.nn.Sigmoid()
+        self.sigmoid1 = torch.nn.ReLU()
         self.dropout1 = nn.Dropout(0.2)
         self.linear2 = Linear(num, num)
         self.batchnorm2 = nn.BatchNorm1d(num)
-        self.sigmoid2 = torch.nn.Sigmoid()
+        self.sigmoid2 = torch.nn.ReLU()
         self.dropout2 = nn.Dropout(0.2)
         self.linear3 = Linear(num, num)
         self.batchnorm3 = nn.BatchNorm1d(num)
-        self.sigmoid3 = torch.nn.Sigmoid()
+        self.sigmoid3 = torch.nn.ReLU()
         self.dropout3 = nn.Dropout(0.2)
         self.linear4 = Linear(num, 128)
 
@@ -108,17 +108,17 @@ class Semi_encoding_single(torch.nn.Module):
 
     def encoder1(self, x0):
         x1 = self.linear1(x0)
-        x1 = self.batchnorm1(x1) #+ x0)
+        x1 = self.batchnorm1(x1 + x0)
         x1 = self.sigmoid1(x1)
         x1 = self.dropout1(x1)
 
         x2 = self.linear2(x1)
-        x2 = self.batchnorm2(x2) #+ x1)
+        x2 = self.batchnorm2(x2 + x1)
         x2 = self.sigmoid2(x2)
         x2 = self.dropout2(x2)
 
         x3 = self.linear3(x2)
-        x3 = self.batchnorm3(x3)  # + x2)
+        x3 = self.batchnorm3(x3 + x2)
         x3 = self.sigmoid3(x3)
         x3 = self.dropout3(x3)
 
