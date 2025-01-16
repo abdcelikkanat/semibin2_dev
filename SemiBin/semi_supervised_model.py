@@ -105,12 +105,12 @@ class Semi_encoding_single(torch.nn.Module):
     def encoder1(self, x0):
         x1 = self.linear1(x0)
         x1 = self.dropout1(x1)
-        x1 = self.batchnorm1(x1+x0)
+        x1 = self.batchnorm1(x1)
         x1 = self.sigmoid1(x1)
 
         x2 = self.linear1(x1)
         x2 = self.dropout1(x2)
-        x2 = self.batchnorm1(x2 + x1)
+        x2 = self.batchnorm1(x2)
         x2 = self.sigmoid1(x2)
 
         return self.linear3(x2)

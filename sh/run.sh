@@ -16,7 +16,7 @@
 # Exit on first error and if any variables are unset
 #set -eu
 
-TEST_NAME="V6Bound4MBatch2KEpoch50LR1e3Relu1FIX" #"negativeSamplesV2TOnePosPairsEpochs50NoBound"
+TEST_NAME="V6Bound4MBatch2KEpoch50LR1e3NoResnet" #"negativeSamplesV2TOnePosPairsEpochs50NoBound"
 
 THREADS=40
 SEQ_MIN_LEN=3000
