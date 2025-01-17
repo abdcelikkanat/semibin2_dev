@@ -44,6 +44,7 @@ def train_self(logger, out : str, datapaths, data_splits, is_combined=True,
     learning_rate = 1e-3
     batchsize = 1024 * 2
     upper_bound = 4_000_000
+    right_limit = 256 #136
     from tqdm import tqdm
     import pandas as pd
     import numpy as np
@@ -51,7 +52,7 @@ def train_self(logger, out : str, datapaths, data_splits, is_combined=True,
     train_data = pd.read_csv(datapaths[0], index_col=0).values
 
     if not is_combined:
-        train_data = train_data[:, :136]
+        train_data = train_data[:, :right_limit]
         raise ValueError("Ohh no! It shoudn't be here!")
 
     torch.set_num_threads(num_process)
@@ -92,7 +93,7 @@ def train_self(logger, out : str, datapaths, data_splits, is_combined=True,
             train_data_split = data_split.values
             n_must_link = len(train_data_split)
             if not is_combined:
-                train_data = train_data[:, :136]
+                train_data = train_data[:, :right_limit]
             else:
                 if norm_abundance(train_data):
                     from sklearn.preprocessing import normalize

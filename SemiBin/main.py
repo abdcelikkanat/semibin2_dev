@@ -1128,6 +1128,7 @@ def binning_preprocess(data, depth_metabat2, model_path, environment, device):
         col_name = data.columns[-1].split('_')[-1]
         is_combined = col_name != 'var'
         n_sample = (data.shape[1] - 136) // 2 if not is_combined else (data.shape[1] - 136)
+        raise ValueError("We should not reach this point")
     else:
         is_combined = False
         n_sample = 1
