@@ -43,8 +43,8 @@ for SAMPLE_NAME in ${SAMPLES[@]}
 do
 
 # Define the input file paths
-EUKFILT_FILE="${DATA_FOLDER}/data/datasets/${SAMPLE_NAME}/eukfilt_assembly.fasta"
-BAM_FILE="${DATA_FOLDER}/data/datasets/${SAMPLE_NAME}/1_cov.bam"
+EUKFILT_FILE="${DATA_FOLDER}/${SAMPLE_NAME}/eukfilt_assembly.fasta" #"${DATA_FOLDER}/data/datasets/${SAMPLE_NAME}/eukfilt_assembly.fasta"
+BAM_FILE="${DATA_FOLDER}/${SAMPLE_NAME}/1_cov.bam" #"${DATA_FOLDER}/data/datasets/${SAMPLE_NAME}/1_cov.bam"
 
 # Define the final output folder
 SAMPLE_OUTPUT_FOLDER="${OUTPUT_FOLDER}/${SAMPLE_NAME}"
