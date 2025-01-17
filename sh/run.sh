@@ -16,7 +16,7 @@
 # Exit on first error and if any variables are unset
 #set -eu
 
-TEST_NAME="V9K256mersEpoch50" #"negativeSamplesV2TOnePosPairsEpochs50NoBound"
+TEST_NAME="V9K256mersEpoch50FIXED" #"negativeSamplesV2TOnePosPairsEpochs50NoBound"
 
 THREADS=40
 SEQ_MIN_LEN=3000
@@ -26,7 +26,7 @@ PROJECT_FOLDER="/home/cs.aau.dk/zs74qz/workspace/semibin2_dev"
 SEMIBIN2_PATH="/home/cs.aau.dk/zs74qz/.conda/envs/semibin2_dev/bin/SemiBin2"
 CHECKM2_PATH="/home/cs.aau.dk/zs74qz/workspace/semibin3_article/tools/CheckM2-1.0.1/bin/checkm2"
 CHECKM2_ENV="/home/cs.aau.dk/zs74qz/workspace/semibin3_article/envs/checkm2_1.0.1"
-DATA_FOLDER="/home/cs.aau.dk/zs74qz/workspace/semibin3_article/"
+DATA_FOLDER=${PROJECT_FOLDER}/datasets/ #"/home/cs.aau.dk/zs74qz/workspace/semibin3_article/"
 OUTPUT_FOLDER="${PROJECT_FOLDER}/outputs/${TEST_NAME}/"
 
 
