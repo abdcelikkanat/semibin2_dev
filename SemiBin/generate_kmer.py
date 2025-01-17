@@ -12,8 +12,8 @@ def generate_feature_mapping(kmer_len):
         kmer = ''.join(kmer)
         if kmer not in kmer_hash:
             kmer_hash[kmer] = counter
-            rev_compl = tuple([BASE_COMPLEMENT[x] for x in reversed(kmer)])
-            kmer_hash[''.join(rev_compl)] = counter
+            # rev_compl = tuple([BASE_COMPLEMENT[x] for x in reversed(kmer)])
+            # kmer_hash[''.join(rev_compl)] = counter
             counter += 1
     return kmer_hash, counter
 

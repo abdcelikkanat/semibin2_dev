@@ -40,7 +40,7 @@ def train_self(logger, out : str, datapaths, data_splits, is_combined=True,
     ----------
     out : filename to write model to
     """
-    epoches = 500
+    epoches = 50
     learning_rate = 1e-3
     batchsize = 1024 * 2
     upper_bound = 4_000_000
@@ -52,6 +52,7 @@ def train_self(logger, out : str, datapaths, data_splits, is_combined=True,
 
     if not is_combined:
         train_data = train_data[:, :136]
+        raise ValueError("Ohh no! It shoudn't be here!")
 
     torch.set_num_threads(num_process)
 
