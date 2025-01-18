@@ -53,7 +53,8 @@ def cluster_long_read(logger, model, data, device, is_combined,
     from .utils import norm_abundance
     contig_list = data.index.tolist()
     if not is_combined:
-        train_data_input = data.values[:, 0:136]
+        # train_data_input = data.values[:, 0:136]
+        train_data_input = data.values[:, :256] # :UPDATED
     else:
         train_data_input = data.values
         if norm_abundance(train_data_input):
