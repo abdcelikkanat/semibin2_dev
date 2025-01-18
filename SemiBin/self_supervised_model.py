@@ -53,7 +53,6 @@ def train_self(logger, out : str, datapaths, data_splits, is_combined=True,
 
     if not is_combined:
         train_data = train_data[:, :right_limit]
-        raise ValueError("Ohh no! It shoudn't be here!")
 
     torch.set_num_threads(num_process)
 
